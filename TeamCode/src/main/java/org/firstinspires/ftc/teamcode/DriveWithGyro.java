@@ -1,4 +1,8 @@
 package org.firstinspires.ftc.teamcode;
+import static org.firstinspires.ftc.teamcode.Configuration.BACK_LEFT_MOTOR;
+import static org.firstinspires.ftc.teamcode.Configuration.BACK_RIGHT_MOTOR;
+import static org.firstinspires.ftc.teamcode.Configuration.FRONT_LEFT_MOTOR;
+import static org.firstinspires.ftc.teamcode.Configuration.FRONT_RIGHT_MOTOR;
 import static java.lang.Thread.sleep;
 
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
@@ -46,17 +50,17 @@ public class DriveWithGyro extends OpMode
     public void init() {
 
         // Drivetrain
-        frontLeftMotor = hardwareMap.dcMotor.get("FrontLeft");//Hub - Port #2
-        backLeftMotor = hardwareMap.dcMotor.get("BackLeft");//Hub - Port # 1
-        frontRightMotor = hardwareMap.dcMotor.get("FrontRight");//Hub - Port #0
-        backRightMotor = hardwareMap.dcMotor.get("BackRight");//Hub - Port #3
-        Claw_Intake = hardwareMap.servo.get("servoMain");//Hub - Port #2
+        frontLeftMotor = hardwareMap.dcMotor.get(FRONT_LEFT_MOTOR);//Hub - Port #2
+        backLeftMotor = hardwareMap.dcMotor.get(BACK_LEFT_MOTOR);//Hub - Port # 1
+        frontRightMotor = hardwareMap.dcMotor.get(FRONT_RIGHT_MOTOR);//Hub - Port #0
+        backRightMotor = hardwareMap.dcMotor.get(BACK_RIGHT_MOTOR);//Hub - Port #3
+
         // Define the IMU (gyro sensor)
         // Retrieve the IMU from the hardware map
         imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.RIGHT,
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
                 RevHubOrientationOnRobot.UsbFacingDirection.BACKWARD));
         imu.initialize(parameters);
         //Field-centric initialization - end
@@ -65,18 +69,6 @@ public class DriveWithGyro extends OpMode
         frontLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         backLeftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
-        //INTAKE / deposit
-        sliderMotor = hardwareMap.dcMotor.get("sliderMotor");//EHub- Port #1
-        servoMain = hardwareMap.servo.get("servoMain");//Hub - Port #0
-        servoGrab = hardwareMap.crservo.get("servoGrab");//Hub - Port #2
-
-        sliderMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        // Reset encoders and set to RUN_USING_ENCODER mode
-        sliderMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        //Hold the intake in place
-        servoMain.setPosition(.3);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -140,82 +132,6 @@ public class DriveWithGyro extends OpMode
         backLeftMotor.setPower(-backLeftPower);
         frontRightMotor.setPower(frontRightPower);
         backRightMotor.setPower(backRightPower);
-
-
-        //intake
-        double Servoposition =0.65;
-
-        if ( gamepad2.a)// Brings the intake down
-        {
-            servoMain.setPosition(Servoposition);
-            telemetry.addData("Servo x position", servoMain.getPosition());
-        }
-
-        if ( gamepad2.y) //Brings intake up
-        {
-            servoMain.setPosition(0.4);
-            telemetry.addData("Servo b position", servoMain.getPosition());
-        }
-
-        if (gamepad2.b) //Intake butter blocks
-        {
-            servoGrab.setPower(.5);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            servoGrab.setPower(0);
-        }
-        if (gamepad2.x) //Outake
-        {
-            servoGrab.setPower(-.5);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            servoGrab.setPower(0);
-        }
-        //slider
-        boolean dpadUp = gamepad2.dpad_up;
-        boolean dpadDown = gamepad2.dpad_down;
-
-        if (dpadUp) {
-            // Move slider up
-            //moveSliderToPosition(positionUp);
-            if (sliderMotor.getCurrentPosition()<= positionUp) {
-                sliderMotor.setTargetPosition(positionUp);
-                sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                sliderMotor.setPower(motorPower);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                sliderMotor.setPower(0.0);
-                sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-        } else if (dpadDown) {
-            // Move slider down
-            //moveSliderToPosition(positionDown);
-            if (sliderMotor.getCurrentPosition()>= positionDown)
-            {
-                sliderMotor.setTargetPosition(positionDown);
-                sliderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-                sliderMotor.setPower(motorPower);
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                sliderMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-                sliderMotor.setPower(0.0);
-                sliderMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-            }
-        }
 
 
         // Show the elapsed game time and wheel power.

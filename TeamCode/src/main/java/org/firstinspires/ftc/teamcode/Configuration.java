@@ -3,19 +3,25 @@ package org.firstinspires.ftc.teamcode;
 public class Configuration {
 
     // Motor ports - Drivetrain - REV Hub
-    public static final int FRONT_LEFT_MOTOR_PORT = 2;
-    public static final int BACK_LEFT_MOTOR_PORT = 1;
-    public static final int FRONT_RIGHT_MOTOR_PORT = 0;
-    public static final int BACK_RIGHT_MOTOR_PORT = 3;
+    public static final int FRONT_LEFT_MOTOR_PORT = 3;//3
+    public static final int BACK_LEFT_MOTOR_PORT = 2;//1
+    public static final int FRONT_RIGHT_MOTOR_PORT = 1;//0
+    public static final int BACK_RIGHT_MOTOR_PORT = 0;//3
 
+
+    //Motor port - Servo
+    public static final int SERVO_MOTOR_PORT = 0;
+
+    //Motor Name - Servo
+    public static final String SERVO_MOTOR = "servoMotor";//3
     // Motor port - Intake
     public static final int INTAKE_MOTOR_PORT = 2;
 
     // Motor Names - Drivetrain
-    public static final String FRONT_LEFT_MOTOR = "leftFront";
-    public static final String BACK_LEFT_MOTOR = "leftRear";
-    public static final String FRONT_RIGHT_MOTOR = "rightFront";
-    public static final String BACK_RIGHT_MOTOR = "rightRear";
+    public static final String FRONT_LEFT_MOTOR = "leftFront";//3
+    public static final String BACK_LEFT_MOTOR = "leftRear";//2
+    public static final String FRONT_RIGHT_MOTOR = "rightFront";//1
+    public static final String BACK_RIGHT_MOTOR = "rightRear";//0
 
     // Motor Name - Park Slider
     public static final String SLIDER_MOTOR_LEFT = "sliderMotorLeft";
