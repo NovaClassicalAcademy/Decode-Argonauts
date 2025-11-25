@@ -1,7 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 import static org.firstinspires.ftc.teamcode.Configuration.MAX_MOTOR_SPEED;
+import static org.firstinspires.ftc.teamcode.Configuration.MIN_MOTOR_SPEED;
 import static org.firstinspires.ftc.teamcode.Configuration.MOTOR_STOP;
 import static org.firstinspires.ftc.teamcode.Configuration.SERVO_MOVE_TIME;
+import static org.firstinspires.ftc.teamcode.Configuration.SERVO_PUSH_MAX;
+import static org.firstinspires.ftc.teamcode.Configuration.SERVO_PUSH_MIN;
 import static org.firstinspires.ftc.teamcode.Configuration.SLIDE_MAX_HEIGHT;
 import static org.firstinspires.ftc.teamcode.Configuration.SLIDE_MIN_HEIGHT;
 import static org.firstinspires.ftc.teamcode.Configuration.SLIDE_TIMEOUT;
@@ -21,6 +24,7 @@ public class RobotCentricDrive extends LinearOpMode {
     private boolean xPressed = false;
     private boolean bPressed = false;
 
+    private double drive_Speed;
 
     public void runOpMode() {
         robot.init(hardwareMap);
@@ -31,6 +35,17 @@ public class RobotCentricDrive extends LinearOpMode {
         waitForStart();
 
         while (opModeIsActive()) {
+
+            if (gamepad1.right_bumper)
+
+            {
+                drive_Speed = MIN_MOTOR_SPEED;
+            }
+            else {
+                drive_Speed = MAX_MOTOR_SPEED;
+            }
+
+
             // Joystick inputs
             double y = -gamepad1.left_stick_y;  // Forward/Back
             double x = gamepad1.left_stick_x;   // Strafe
@@ -41,6 +56,11 @@ public class RobotCentricDrive extends LinearOpMode {
             double backLeftPower = y - x + rx;
             double frontRightPower = y - x - rx;
             double backRightPower = y + x - rx;
+
+            frontLeftPower = frontLeftPower * drive_Speed;
+            frontRightPower = frontRightPower * drive_Speed;
+            backLeftPower = backLeftPower * drive_Speed;
+            backRightPower = backRightPower * drive_Speed;
 
             // Normalize powers to avoid exceeding 1.0
             double max = Math.max(1.0, Math.abs(frontLeftPower));
@@ -70,6 +90,16 @@ public class RobotCentricDrive extends LinearOpMode {
                 robot.intakeMotor.setPower(MOTOR_STOP);
             }
 
+            //Outtake
+            if (gamepad2.right_trigger>0.05) {
+                robot.outtakeMotor.setPower(MAX_MOTOR_SPEED);
+            }
+            else
+            {
+                robot.outtakeMotor.setPower(MOTOR_STOP);
+            }
+
+/* Will use for 2nd comp
 // Slides
             if (gamepad1.right_bumper) {
                 robot.moveSlidesToPosition(SLIDE_MAX_HEIGHT, SLIDE_TIMEOUT);
@@ -77,7 +107,7 @@ public class RobotCentricDrive extends LinearOpMode {
             if (gamepad1.left_bumper) {
                 robot.moveSlidesToPosition(SLIDE_MIN_HEIGHT, SLIDE_TIMEOUT);
             }
-
+*/
 //SERVO MOVEMENT
 // Next position (X)
             if (gamepad2.x && !xPressed) {
@@ -93,6 +123,14 @@ public class RobotCentricDrive extends LinearOpMode {
             }
             if (!gamepad2.b) bPressed = false;
 
+            if (gamepad2.right_bumper) {
+                robot.pushServo.setPosition(SERVO_PUSH_MAX);
+                sleep(200);
+                robot.pushServo.setPosition(SERVO_PUSH_MIN);
+            }
+            else if (gamepad2.left_bumper) {
+                robot.pushServo.setPosition(SERVO_PUSH_MIN);
+            }
 
 
         }

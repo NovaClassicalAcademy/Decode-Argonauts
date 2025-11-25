@@ -9,36 +9,47 @@ public class Configuration {
     public static final int BACK_RIGHT_MOTOR_PORT = 0;
 
     //intake Motor port
-    public static final int INTAKE_MOTOR_PORT = 0;
+    public static final int INTAKE_MOTOR_PORT = 2;
 
     //Motor port - Servo
     public static final int SERVO_MOTOR_PORT = 0;
 
-    //Motor Name - Servo
-    public static final String SERVO_MOTOR_TRAY = "servoMotorTray";//3
+    //Motor Name - ServoTray
+    public static final String SERVO_MOTOR_TRAY = "servoMotorSpin";//3
+    //Motor Name - ServoPush
+    public static final String SERVO_MOTOR_PUSH = "servoMotorPush";//3
 
-    //Servo positions
-    public static final double SERVO_TRAY_MIN = 0.2;
+    //Servo positions - tray
+    public static final double SERVO_TRAY_MIN = 0.18;
     public static final double SERVO_MOVE_TIME = 0.4;
-    public static final double SERVO_TRAY_SLOT1 = 0.0;
-    public static final double SERVO_TRAY_SLOT2 = 0.5;
-    public static final double SERVO_TRAY_SLOT3 = 1.0;
+    public static final double SERVO_TRAY_SLOT1 = 0.18;
+    public static final double SERVO_TRAY_SLOT2 = 0.56;
+    public static final double SERVO_TRAY_SLOT3 = 0.93;
+
+    //Servo positions - push
+    public static final double SERVO_PUSH_MIN = 0.9;
+    public static final double SERVO_PUSH_MAX = 0.18;
 
     // Motor port - Intake
 
     // Motor Names - Drivetrain
-    public static final String FRONT_LEFT_MOTOR = "frontLeftMotor";//3
-    public static final String BACK_LEFT_MOTOR = "backLeftMotor";//2
-    public static final String FRONT_RIGHT_MOTOR = "frontRightMotor";//1
-    public static final String BACK_RIGHT_MOTOR = "backRightMotor";//0
+    public static final String FRONT_LEFT_MOTOR = "leftFront";//3
+    public static final String BACK_LEFT_MOTOR = "leftRear";//2
+    public static final String FRONT_RIGHT_MOTOR = "rightFront";//1
+    public static final String BACK_RIGHT_MOTOR = "rightRear";//0
 
     //intake Motor
     public static final String INTAKE_MOTOR = "intakeMotor";//
 
+
+    //outtake Motor
+    public static final String OUTTAKE_MOTOR = "outtakeMotor";//
+
     // Motor Name - Slider
+    /*Will use for 2nd comp
     public static final String SLIDER_MOTOR_LEFT = "sliderMotorLeft";
     public static final String SLIDER_MOTOR_RIGHT = "sliderMotorRight";
-
+    */
     // Motor speeds (Power settings)
     public static final double MAX_MOTOR_SPEED = 1.0;
     public static final double MIN_MOTOR_SPEED = 0.2;
@@ -66,14 +77,15 @@ public class Configuration {
     // Autonomous Mode Timeouts (in seconds)
     public static final double AUTONOMOUS_TIME_LIMIT = 30.0;
 
-    //Ticks per inch from encoder
+    //Encoder settings
     static final double COUNTS_PER_INCH = 1440;
+    public static final double COUNTS_PER_MOTOR_REV = 537.7; // GoBilda 312 RPM motor
+    public static final double WHEEL_DIAMETER_INCHES = 3.78;
 
     // Color sequence
     public static final String VAL_21 = "";
     public static final String VAL_22 = "";
     public static final String VAL_23 = "";
-
 
 
 }
