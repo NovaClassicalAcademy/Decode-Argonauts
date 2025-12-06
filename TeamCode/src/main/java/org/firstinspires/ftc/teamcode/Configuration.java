@@ -33,10 +33,10 @@ public class Configuration {
     // Motor port - Intake
 
     // Motor Names - Drivetrain
-    public static final String FRONT_LEFT_MOTOR = "leftFront";//3
-    public static final String BACK_LEFT_MOTOR = "leftRear";//2
-    public static final String FRONT_RIGHT_MOTOR = "rightFront";//1
-    public static final String BACK_RIGHT_MOTOR = "rightRear";//0
+    public static final String FRONT_LEFT_MOTOR = "leftFront";//EX-3
+    public static final String BACK_LEFT_MOTOR = "leftRear";//EX-2
+    public static final String FRONT_RIGHT_MOTOR = "rightFront";//CH-1
+    public static final String BACK_RIGHT_MOTOR = "rightRear";//CH-0
 
     //intake Motor
     public static final String INTAKE_MOTOR = "intakeMotor";//
